@@ -146,7 +146,7 @@ class StoreManager:
             print("Danh sách hiện đang trống, không thể tìm kiếm!")
             return  
         keyword = self._input_string("Nhập từ khóa muốn tìm kiếm: ").lower() 
-        found_stores = [s for s in self.stores if keyword in s.name.lower()]  
+        found_stores = [s for s in self.stores if keyword in s.name.lower()] 
         
         if not found_stores: 
             print("Không tìm thấy cửa hàng phù hợp.")
@@ -160,8 +160,14 @@ class StoreManager:
             for s in found_stores: 
                 print(f"| {s.id:<8} | {s.name:<25} | {s.revenue_day:<15,.0f} | {s.open_days:<8,.0f} | {s.bonus:<15,.0f} | {s.net_revenue:<20,.0f} | {s.performance_type:<15} |") 
             print("-"*len(header))  
-    
-        
+    def statistics(self): 
+        print("\n--- DANH SÁCH THỐNG KÊ HIỆU NĂNG ---")
+        if not self.stores: 
+            print(" Danh sách trống!")
+            return 
+        stats = {"Thấp": 0, "Trung bình": 0, "Khá": 0,"Cao": 0}
+        for store in self.stores: 
+            
     def _load_sample_data(self): 
         self.stores.append(Store("CH01", "Cửa hàng Quận 1", 300000, 5, 1000000)) 
         self.stores.append(Store("CH02", "Đại lý Tân Bình", 400000, 30, 2000000)) 
