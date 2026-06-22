@@ -159,7 +159,9 @@ class StoreManager:
             
             for s in found_stores: 
                 print(f"| {s.id:<8} | {s.name:<25} | {s.revenue_day:<15,.0f} | {s.open_days:<8,.0f} | {s.bonus:<15,.0f} | {s.net_revenue:<20,.0f} | {s.performance_type:<15} |") 
-            print("-"*len(header))  
+            print("-"*len(header)) 
+            
+             
     def statistics(self): 
         print("\n--- DANH SÁCH THỐNG KÊ HIỆU NĂNG ---")
         if not self.stores: 
@@ -167,6 +169,13 @@ class StoreManager:
             return 
         stats = {"Thấp": 0, "Trung bình": 0, "Khá": 0,"Cao": 0}
         for store in self.stores: 
+            stats[store.performance_type] += 1 
+            
+        print(f"| {'Hiệu năng': <15} | {'Số lượng':<10} |")
+        print("-"*31) 
+        for p_type,count in stats.items(): 
+            print(f"| {p_type:<15} | {count:<10} |")
+        print("-"*31) 
             
     def _load_sample_data(self): 
         self.stores.append(Store("CH01", "Cửa hàng Quận 1", 300000, 5, 1000000)) 
@@ -206,6 +215,8 @@ def main():
                 manager.delete_store() 
             case '5': 
                 manager.search_store() 
+            case '6': 
+                manager.statistics()
             case '7': 
                 print("\nCảm ơn bạn đã sử dụng hệ thống quản lý cửa hàng & doanh thu!")
                 break
